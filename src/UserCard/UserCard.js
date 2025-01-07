@@ -29,3 +29,5 @@ class UserCard extends HTMLElement {
 }
 
 customElements.define("user-card", UserCard);
+
+export default UserCard;

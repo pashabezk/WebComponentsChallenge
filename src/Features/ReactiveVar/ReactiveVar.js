@@ -31,3 +31,5 @@ class ReactiveVar {
 // const makeReactiveVar = (initialValue) => {
 // 	return new ReactiveVar(initialValue);
 // };
+
+export default ReactiveVar;

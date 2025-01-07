@@ -1,3 +1,7 @@
+import {innerHtmlCheck, nameAttributeCheck, styleForBeforeElemCheck} from "../Utils/Tests.js";
+import {STATUSES, TASKS_IDS} from "./Constants.js";
+import Task from "./Task.js";
+
 class TaskManager {
 	#currentTask = 0;
 	tasks = [
@@ -43,3 +47,6 @@ class TaskManager {
 	}
 }
 
+const taskManager = new TaskManager();
+
+export default taskManager;

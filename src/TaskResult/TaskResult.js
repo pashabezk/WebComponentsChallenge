@@ -1,16 +1,10 @@
-// TODO: statuses should be import. Duplication is temporary decision
-const STATUSES_COPY = {
-	IDLE: "IDLE",
-	CHECKING: "CHECKING",
-	COMPLETED: "COMPLETED",
-	NOT_COMPLETED: "NOT_COMPLETED",
-};
+import {STATUSES} from "../Entities/Task/Model/Constants.js";
 
 const MAP_STATUS_TO_EMOJI = {
-	[STATUSES_COPY.IDLE]: "",
-	[STATUSES_COPY.CHECKING]: "⏰",
-	[STATUSES_COPY.COMPLETED]: "✔️",
-	[STATUSES_COPY.NOT_COMPLETED]: "❌",
+	[STATUSES.IDLE]: "",
+	[STATUSES.CHECKING]: "⏰",
+	[STATUSES.COMPLETED]: "✔️",
+	[STATUSES.NOT_COMPLETED]: "❌",
 };
 
 class TaskResult extends HTMLElement {
@@ -31,7 +25,7 @@ class TaskResult extends HTMLElement {
 	connectedCallback() {
 		this.#title = this.getAttribute(TaskResult.#titleAttrName) || "Default title";
 		this.#description = this.getAttribute(TaskResult.#descriptionAttrName) || "Default description";
-		this.#status = this.getAttribute(TaskResult.#statusAttrName) || STATUSES_COPY.IDLE; // TODO: replace with statuses const
+		this.#status = this.getAttribute(TaskResult.#statusAttrName) || STATUSES.IDLE;
 
 		const emojiContainerId = "task-result-status-emoji";
 
@@ -65,3 +59,5 @@ class TaskResult extends HTMLElement {
 }
 
 customElements.define("task-result", TaskResult);
+
+export default TaskResult;

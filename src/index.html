@@ -10,12 +10,9 @@
 	<link rel="stylesheet" href="./TaskResult/TaskResult.css">
 </head>
 <body>
-	<script type="text/javascript" src="./Features/ReactiveVar/ReactiveVar.js"></script>
-	<script type="text/javascript" src="./Entities/Task/Model/Task.js"></script>
-	<script type="text/javascript" src="./Entities/Task/Model/TaskManager.js"></script>
 	<script type="text/javascript" src="./IfElement/IfCustomElement.js"></script>
-	<script type="text/javascript" src="./UserCard/UserCard.js"></script>
-	<script type="text/javascript" src="./TaskResult/TaskResult.js"></script>
+	<script type="module" src="./TaskResult/TaskResult.js"></script>
+	<script type="module" src="./UserCard/UserCard.js"></script>
 
 	<h1>Web components challenge</h1>
 	<noscript><p>Enable JS to see content</p></noscript>
@@ -46,133 +43,8 @@
 		document.querySelector("#showhide").addEventListener("click", showHide);
 	</script> -->
 
-	<script type="text/javascript">
-		const TASKS_IDS = {
-			NAME_ATTRIBUTE: "NAME_ATTRIBUTE",
-			INNER_HTML_FORBIDDEN: "INNER_HTML_FORBIDDEN",
-			WARNING: "WARNING",
-		};
-
-		const STATUSES = {
-			IDLE: "IDLE",
-			CHECKING: "CHECKING",
-			COMPLETED: "COMPLETED",
-			NOT_COMPLETED: "NOT_COMPLETED",
-		};
-
-		const timeout = (ms = 1000) => {
-			return new Promise((resolve) => setTimeout(resolve, ms));
-		};
-
-		const blockForTests = document.getElementById("blockForTests");
-
-		const nameAttributeCheck = () => {
-			// test default name (should be empty string)
-			let result = STATUSES.COMPLETED;
-			const userCard = document.createElement("user-card");
-			blockForTests.appendChild(userCard);
-
-			const nameParagraph = userCard.querySelector("p.user-name");
-			if (nameParagraph.textContent.trim() === "") {
-				console.log("name contains");
-			} else {
-				console.log("name not contains");
-				result = STATUSES.NOT_COMPLETED;
-			}
-			blockForTests.removeChild(userCard);
-
-			// test custom names
-			const names = ["TestName", "NameTest"];
-			names.forEach((nameToCheck) => {
-				const userCard = document.createElement("user-card");
-				userCard.setAttribute("name", nameToCheck);
-				blockForTests.appendChild(userCard);
-
-				const nameParagraph = userCard.querySelector("p.user-name");
-				if (nameParagraph.textContent.includes(nameToCheck)) {
-					console.log("name contains");
-				} else {
-					console.log("name not contains");
-					result = STATUSES.NOT_COMPLETED;
-				}
-				blockForTests.removeChild(userCard);
-			});
-
-			return result;
-		};
-
-		const innerHtmlCheck = () => {
-			let result = STATUSES.COMPLETED;
-			// const userCard = document.createElement("user-card");
-			const userCard = new UserCard();
-			const innerHtmlDescriptor = Object.getOwnPropertyDescriptor(Element.prototype, "innerHTML");
-			Object.defineProperty(userCard, "innerHTML", {
-				get() {
-					result = STATUSES.NOT_COMPLETED;
-					// errors.setError(ERR_USED_INNER_HTML, true);
-					return innerHtmlDescriptor.get();
-				},
-				set(value) {
-					result = STATUSES.NOT_COMPLETED;
-					// errors.setError(ERR_USED_INNER_HTML, true);
-					innerHtmlDescriptor.set.call(this, value);
-				},
-			});
-			userCard.connectedCallback();
-			return result;
-		};
-
-		const styleForBeforeElemCheck = async () => {
-			let result = STATUSES.COMPLETED;
-			const USER_FILES_FOLDER_PATH = "./UserCard";
-			const USER_CARD_STYLES_PATH = USER_FILES_FOLDER_PATH + "/UserCard.css";
-
-			const frame = document.createElement("iframe");
-			frame.setAttribute("src", "about:blank");
-			frame.style.width = "200px";
-			frame.style.height = "100px";
-			blockForTests.appendChild(frame);
-
-			const doc = document.implementation.createHTMLDocument("New Document");
-
-			const link = document.createElement("link");
-			link.rel = "stylesheet";
-			link.href = USER_CARD_STYLES_PATH;
-
-			const userCard = doc.createElement("user-card");
-
-			try {
-				doc.body.appendChild(userCard);
-				doc.head.appendChild(link);
-			} catch (e) {
-				console.log(e);
-			}
-
-			const destDocument = frame.contentDocument;
-			const srcNode = doc.documentElement;
-			const newNode = destDocument.importNode(srcNode, true);
-
-			destDocument.replaceChild(newNode, destDocument.documentElement);
-
-			// destDocument.documentElement.addEventListener("DOMContentLoaded", (event) => {});
-			await timeout();
-
-			const elem = destDocument.querySelector("user-card");
-			const computedStyle = destDocument.defaultView.getComputedStyle(elem, "::after");
-			if (computedStyle.content === "'Element not defined'") {
-				console.log("Стиль присутствует");
-			} else {
-				console.log("Стиль отсутствует");
-				result = STATUSES.NOT_COMPLETED;
-				// errors.setError(ERR_BEFORE_ELEM_ABSENT, true);
-			}
-
-			blockForTests.removeChild(frame);
-			return result;
-		};
-
-		// TODO: define and export from task manager
-		const taskManager = new TaskManager();
+	<script type="module">
+		import taskManager from "./Entities/Task/Model/TaskManager.js";
 
 		const tasksContainer = document.getElementById("tasks-container");
 		taskManager.tasks.forEach((task) => {

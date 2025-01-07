@@ -1,3 +1,6 @@
+import ReactiveVar from "../../../Features/ReactiveVar/ReactiveVar.js";
+import {STATUSES} from "./Constants.js";
+
 class Task {
 	constructor({
 		id = null,
@@ -17,3 +20,5 @@ class Task {
 		this.status.changeValue(status);
 	}
 }
+
+export default Task;
