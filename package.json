@@ -1,0 +1,26 @@
+{
+	"name": "web-components-challenge",
+	"version": "1.0.0",
+	"description": "Web components challenge",
+	"main": "index.html",
+	"scripts": {
+		"start": "servor --reload --browse",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/pashabezk/WebComponentsChallenge.git"
+	},
+	"keywords": [
+		"web-components"
+	],
+	"author": "pashabezk",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/pashabezk/WebComponentsChallenge/issues"
+	},
+	"homepage": "https://github.com/pashabezk/WebComponentsChallenge#readme",
+	"dependencies": {
+		"servor": "4.0.2"
+	}
+}
