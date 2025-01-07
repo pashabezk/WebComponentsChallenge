@@ -1,0 +1,13 @@
+* {
+	box-sizing: content-box;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+	line-height: 1;
+	margin: 0;
+	padding: 0;
+}
+
+#blockForTests {
+	display: none;
+}

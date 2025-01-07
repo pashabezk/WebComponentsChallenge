@@ -1,0 +1,12 @@
+.task-result-container {
+	border: solid gray 2px;
+}
+
+.task-result-title-container {
+	display: flex;
+	gap: 5px;
+}
+
+.task-result-title {
+	line-height: 1;
+}
