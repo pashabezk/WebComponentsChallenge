@@ -14,18 +14,32 @@
 	<script type="module" src="./TaskResult/TaskResult.js"></script>
 	<script type="module" src="./UserCard/UserCard.js"></script>
 
-	<h1>Web components challenge</h1>
-	<noscript><p>Enable JS to see content</p></noscript>
+	<div class="app-container">
+		<header>
+			<h1>Web components challenge</h1>
+		</header>
+		<main>
+			<noscript><p>Enable JS to see content</p></noscript>
 
-	<p>User card</p>
-	<user-card name="Ivan" surname="Ivanov"></user-card>
-	<hr/>
+			<p>User card</p>
+			<user-card name="Ivan" surname="Ivanov"></user-card>
+			<hr/>
 
-	<h2>Tests</h2>
-	<div id="tasks-container"></div>
+			<h2>Tests</h2>
+			<div id="tasks-container"></div>
 
-	<hr/>
-	<div id="blockForTests"></div>
+			<hr/>
+			<div id="blockForTests"></div>
+		</main>
+		<footer>
+			<div class="main-footer">
+				<p>
+					Created by
+					<a href="https://pashabezk.github.io/MainPage" target="_blank" rel="noreferrer">pashabezk</a>
+				</p>
+			</div>
+		</footer>
+	</div>
 
 	<!-- <button id="showhide">Show/hide</button>
 	<if-tag condition="true" id="test">

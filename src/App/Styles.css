@@ -2,12 +2,58 @@
 	box-sizing: content-box;
 }
 
+html, body {
+	min-height: 100dvh;
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
 h1, h2, h3, h4, h5, h6, p {
 	line-height: 1;
 	margin: 0;
 	padding: 0;
 }
 
+a {
+	text-decoration: none;
+}
+
+.app-container {
+	min-height: 100dvh;
+	display: flex;
+	flex-direction: column;
+}
+
+.app-container > header {
+	flex-grow: 0;
+	max-width: 1000px;
+	margin: 15px auto;
+}
+
+.app-container > main {
+	flex-grow: 1;
+	max-width: 1000px;
+	margin: 15px auto;
+	display: flex;
+	flex-direction: column;
+}
+
+.app-container > footer {
+	flex-grow: 0;
+	margin: 15px;
+	display: flex;
+	justify-content: center;
+}
+
 #blockForTests {
 	display: none;
+}
+
+.main-footer {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
 }
