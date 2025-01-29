@@ -70,7 +70,7 @@ export const innerHtmlCheck = () => {
 
 export const styleForBeforeElemCheck = async () => {
 	let result = STATUSES.COMPLETED;
-	const USER_FILES_FOLDER_PATH = "./UserCard";
+	const USER_FILES_FOLDER_PATH = "/src/UserCard";
 	const USER_CARD_STYLES_PATH = USER_FILES_FOLDER_PATH + "/UserCard.css";
 	const blockForTests = getBlockForTests();
 
@@ -106,7 +106,7 @@ export const styleForBeforeElemCheck = async () => {
 
 	const elem = destDocument.querySelector("user-card");
 	const computedStyle = destDocument.defaultView.getComputedStyle(elem, "::after");
-	if (computedStyle.content === "'Element not defined'") {
+	if (computedStyle.content.includes("Element not defined")) {
 		console.log("Стиль присутствует");
 	} else {
 		console.log("Стиль отсутствует");
