@@ -1,4 +1,5 @@
 import {LocalStorageHelper, LocalStorageKeys} from "../../../Features/LocalStorageHelper/LocalStorageHelper.js";
+import ReactiveVar from "../../../Features/ReactiveVar/ReactiveVar.js";
 import {innerHtmlCheck, nameAttributeCheck, styleForBeforeElemCheck} from "../Utils/Tests.js";
 import {STATUSES, TASKS_IDS} from "./Constants.js";
 import Task from "./Task.js";
@@ -6,10 +7,11 @@ import Task from "./Task.js";
 class TaskManager {
 	/**
 	 * Store current task on which user works
-	 * @type {number}
+	 * @type {ReactiveVar<number>}
 	 */
-	#currentTask = 0;
+	#currentTask = new ReactiveVar(0);
 
+	/** @type {Task[]} */
 	#tasks = [
 		new Task({
 			id: TASKS_IDS.NAME_ATTRIBUTE,
@@ -32,31 +34,44 @@ class TaskManager {
 	];
 
 	constructor() {
-		this.#currentTask = parseInt(LocalStorageHelper.read(LocalStorageKeys.CURRENT_TASK)) || 0;
+		this.#currentTask.changeValue(parseInt(LocalStorageHelper.read(LocalStorageKeys.CURRENT_TASK)) || 0);
 	}
 
+	/**
+	 * Available for user tasks
+	 * @return {Task[]}
+	 */
 	get tasks() {
-		return this.#tasks.slice(0, this.#currentTask + 1);
+		return this.#tasks.slice(0, this.#currentTask.getValue() + 1);
 	}
 
-	getTaskById(taskId) {
-		return this.#tasks.find((task) => task.id === taskId);
+	/**
+	 * Current task on which user works
+	 * @return {ReadonlyReactiveVar<number>}
+	 */
+	get currentTask() {
+		return this.#currentTask.asReadonly();
 	}
 
+	// getTaskById(taskId) {
+	// 	return this.#tasks.find((task) => task.id === taskId);
+	// }
+
+	/** Method to start checking tasks */
 	async executeCheck() {
 		this.#tasks.forEach((task) => {
 			task.changeStatus(STATUSES.IDLE);
 		});
 
-		for (let i = 0; i < Math.min(/*this.#currentTask + 1,*/ this.#tasks.length); i++) {
+		for (let i = 0; i < Math.min(this.#currentTask.getValue() + 1, this.#tasks.length); i++) {
 			const task = this.#tasks[i];
 			task.changeStatus(STATUSES.CHECKING);
 			const result = await task.handler();
 			task.changeStatus(result);
 			// TODO: add check that all previous tasks also completed
-			if (i === this.#currentTask && result === STATUSES.COMPLETED) {
-				this.#currentTask++;
-				LocalStorageHelper.write(LocalStorageKeys.CURRENT_TASK, this.#currentTask);
+			if (i === this.#currentTask.getValue() && result === STATUSES.COMPLETED) {
+				this.#currentTask.changeValue(this.#currentTask.getValue() + 1);
+				LocalStorageHelper.write(LocalStorageKeys.CURRENT_TASK, this.#currentTask.getValue());
 			}
 		}
 	}
