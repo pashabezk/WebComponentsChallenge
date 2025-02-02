@@ -1,9 +1,14 @@
+/** Class, that stores variable and implements reactive logic via subscriptions */
 class ReactiveVar {
 	#value;
 	#subscribers = [];
 
 	constructor(initValue) {
 		this.#value = initValue;
+	}
+
+	getValue() {
+		return this.#value;
 	}
 
 	subscribe(subscribeHandler) {
@@ -21,8 +26,29 @@ class ReactiveVar {
 		});
 	}
 
+	asReadonly() {
+		return new ReadonlyReactiveVar(this);
+	}
+}
+
+/** Class implements that realizes reactive logic for readonly variable */
+class ReadonlyReactiveVar {
+	#reactiveVar;
+
+	constructor(reactiveVar) {
+		this.#reactiveVar = reactiveVar;
+	}
+
 	getValue() {
-		return this.#value;
+		this.#reactiveVar.getValue();
+	}
+
+	subscribe(subscribeHandler) {
+		this.#reactiveVar.subscribe(subscribeHandler);
+	}
+
+	unsubscribe(subscribeHandler) {
+		this.#reactiveVar.unsubscribe(subscribeHandler);
 	}
 }
 
