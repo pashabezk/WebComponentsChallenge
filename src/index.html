@@ -7,11 +7,12 @@
 	<link rel="stylesheet" href="./App/Styles.css">
 	<link rel="stylesheet" href="./IfElement/IfCustomElement.css">
 	<link rel="stylesheet" href="./UserCard/UserCard.css">
-	<link rel="stylesheet" href="./TaskResult/TaskResult.css">
+	<link rel="stylesheet" href="./Widgets/TaskResult/TaskResult.css">
 </head>
 <body>
-	<script type="text/javascript" src="./IfElement/IfCustomElement.js"></script>
-	<script type="module" src="./TaskResult/TaskResult.js"></script>
+	<script type="module" src="./IfElement/IfCustomElement.js"></script>
+	<script type="module" src="./Widgets/TaskResult/TaskResult.js"></script>
+	<script type="module" src="./Widgets/TaskList/TaskList.js"></script>
 	<script type="module" src="./UserCard/UserCard.js"></script>
 
 	<div class="app-container">
@@ -26,7 +27,9 @@
 			<hr/>
 
 			<h2>Tests</h2>
-			<div id="tasks-container"></div>
+			<div id="tasks-container">
+				<task-list></task-list>
+			</div>
 
 			<hr/>
 			<div id="blockForTests"></div>
@@ -58,21 +61,7 @@
 	</script> -->
 
 	<script type="module">
-		import taskManager from "./Entities/Task/Model/TaskManager.js";
-
-		const tasksContainer = document.getElementById("tasks-container");
-		taskManager.tasks.forEach((task) => {
-			const taskResultElem = document.createElement("task-result");
-			taskResultElem.setAttribute("title", task.title);
-			taskResultElem.setAttribute("description", task.description);
-			task.status.subscribe((status) => {
-				taskResultElem.setAttribute("status", status);
-			});
-			tasksContainer.appendChild(taskResultElem);
-		});
-
-		taskManager.executeCheck();
-
+		// import taskManager from "./Entities/Task/Model/TaskManager.js";
 		// добавить тест на кастомные состояния https://developer.mozilla.org/en-US/docs/Web/API/CustomStateSet
 	</script>
 </body>

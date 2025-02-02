@@ -18,16 +18,16 @@ class TaskManager {
 			handler: nameAttributeCheck,
 		}),
 		new Task({
-			id: TASKS_IDS.INNER_HTML_FORBIDDEN,
-			title: "InnerHTML forbidden",
-			description: "Do not use property innerHTML on component initialization",
-			handler: innerHtmlCheck,
-		}),
-		new Task({
 			id: TASKS_IDS.WARNING,
 			title: "Warning",
 			description: "Add style for '::after' pseudoelement if component not defined. After should containt the following text: 'text'",
 			handler: styleForBeforeElemCheck,
+		}),
+		new Task({
+			id: TASKS_IDS.INNER_HTML_FORBIDDEN,
+			title: "InnerHTML forbidden",
+			description: "Do not use property innerHTML on component initialization",
+			handler: innerHtmlCheck,
 		}),
 	];
 

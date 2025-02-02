@@ -31,7 +31,7 @@ class ReactiveVar {
 	}
 }
 
-/** Class implements that realizes reactive logic for readonly variable */
+/** Class that realizes reactive logic for readonly variable */
 class ReadonlyReactiveVar {
 	#reactiveVar;
 

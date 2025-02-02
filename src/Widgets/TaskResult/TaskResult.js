@@ -1,4 +1,4 @@
-import {STATUSES} from "../Entities/Task/Model/Constants.js";
+import {STATUSES} from "../../Entities/Task/Model/Constants.js";
 
 const MAP_STATUS_TO_EMOJI = {
 	[STATUSES.IDLE]: "",
@@ -8,6 +8,8 @@ const MAP_STATUS_TO_EMOJI = {
 };
 
 class TaskResult extends HTMLElement {
+	static selector = "task-result";
+
 	static #titleAttrName = "title";
 	static #descriptionAttrName = "description";
 	static #statusAttrName = "status";
@@ -58,6 +60,6 @@ class TaskResult extends HTMLElement {
 	}
 }
 
-customElements.define("task-result", TaskResult);
+customElements.define(TaskResult.selector, TaskResult);
 
 export default TaskResult;
