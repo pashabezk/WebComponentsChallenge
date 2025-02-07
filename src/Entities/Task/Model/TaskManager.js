@@ -1,6 +1,6 @@
 import {LocalStorageHelper, LocalStorageKeys} from "../../../Features/LocalStorageHelper/LocalStorageHelper.js";
 import ReactiveVar from "../../../Features/ReactiveVar/ReactiveVar.js";
-import {innerHtmlCheck, nameAttributeCheck, styleForBeforeElemCheck} from "../Utils/Tests.js";
+import {imgSrcAttributeCheck, innerHtmlCheck, nameAttributeCheck, styleForBeforeElemCheck} from "../Utils/Tests.js";
 import {STATUSES, TASKS_IDS} from "./Constants.js";
 import Task from "./Task.js";
 
@@ -18,6 +18,12 @@ class TaskManager {
 			title: "Name attribute",
 			description: "Component should have attribute name. Default name is empty string ('')",
 			handler: nameAttributeCheck,
+		}),
+		new Task({
+			id: TASKS_IDS.IMG_SRC_ATTRIBUTE,
+			title: "Image src attribute",
+			description: "Component should have attribute img-src. With default path ('add/path')",
+			handler: imgSrcAttributeCheck,
 		}),
 		new Task({
 			id: TASKS_IDS.WARNING,

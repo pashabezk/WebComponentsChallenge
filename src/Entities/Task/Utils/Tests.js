@@ -47,9 +47,38 @@ export const nameAttributeCheck = () => {
 	return result;
 };
 
+export const imgSrcAttributeCheck = () => {
+	// test default image (should be empty string)
+	let result = STATUSES.COMPLETED;
+	const userCard = document.createElement("user-card");
+	const blockForTests = getBlockForTests();
+	blockForTests.appendChild(userCard);
+
+	const image = userCard.querySelector("img.user-image");
+	if (!image.src.includes("UserCard/profile.svg")) {
+		result = STATUSES.NOT_COMPLETED;
+	}
+	blockForTests.removeChild(userCard);
+
+	// test custom path
+	const paths = ["https://server.com/img", "/path/to/img"];
+	paths.forEach((pathToCheck) => {
+		const userCard = document.createElement("user-card");
+		userCard.setAttribute("img-src", pathToCheck);
+		blockForTests.appendChild(userCard);
+
+		const image = userCard.querySelector("img.user-image");
+		if (!image.src.includes(pathToCheck)) {
+			result = STATUSES.NOT_COMPLETED;
+		}
+		blockForTests.removeChild(userCard);
+	});
+
+	return result;
+};
+
 export const innerHtmlCheck = () => {
 	let result = STATUSES.COMPLETED;
-	// const userCard = document.createElement("user-card");
 	const userCard = new UserCard();
 	const innerHtmlDescriptor = Object.getOwnPropertyDescriptor(Element.prototype, "innerHTML");
 	Object.defineProperty(userCard, "innerHTML", {
